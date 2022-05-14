@@ -1,6 +1,8 @@
 //dependecies
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var consoleTable = require("console.table");
+//dont know where this keeps coming from
 const { start } = require("repl");
 
 //creates connection
@@ -111,3 +113,4 @@ function viewAllEmployees() {
       }
     );
   };
+
