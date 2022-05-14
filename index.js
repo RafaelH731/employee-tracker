@@ -74,3 +74,14 @@ var connection = mysql.createConnection({
       }
     });
   }
+
+  //view all departments function
+  function viewAllDepartments() {
+    connection.query("SELECT * FROM department", function(err, result, fields) {
+        if (err) throw err;
+        console.table(result);
+        // re-prompt the user for another selection
+        startApp();
+      }
+    ); 
+};
