@@ -15,6 +15,7 @@ var connection = mysql.createConnection({
     database: "employee_tracker"
   });
 
+  //connect or show error
   connection.connect((err) => {
     if (err) throw err;
   
@@ -23,5 +24,53 @@ var connection = mysql.createConnection({
   
 
   function startApp() {
-
+    inquirer
+    .prompt({
+      name: "selection",
+      type: "list",
+      message: "What would you like to do? Please select from options below.",
+      choices: 
+        [
+            "View all Departments",
+            "View all Roles",
+            "View all Employees", 
+            "Add Department",
+            "Add a Role",
+            "Add an Employee", 
+            "Update Employee Role",
+        ]
+    })
+    .then(function(answer) {
+        console.log(answer);
+      
+      if (answer.selection === "View All Departments") {
+        viewAllDepartments();
+      }
+      else if(answer.selection === "View all Roles") {
+        viewAllRoles();
+  
+      } 
+      else if(answer.selection === "View all Employees") {
+        viewAllEmployees();
+  
+      }
+      else if(answer.selection === "Add Department") {
+        addDepartment();
+  
+      }
+      else if(answer.selection === "Add a Role") {
+        addRole();
+  
+      }
+      else if(answer.selection === "Add an Employee") {
+        addEmployee();
+  
+      }
+      else if(answer.selection === "Update Employee Role") {
+        updateEmployeeRole();
+  
+      }else{
+        connection.end();
+      }
+    });
   }
