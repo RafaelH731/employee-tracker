@@ -122,7 +122,7 @@ function viewAllEmployees() {
   var employeeChoices = [];
 
   //function to look up departments
-  function lookUpDepartments(){
+  function searchDepartments(){
     connection.query("SELECT * FROM department", function (err, data) {
       if (err) throw err;
       for (i = 0; i < data.length; i++) {
@@ -132,7 +132,7 @@ function viewAllEmployees() {
     }
 
 //function to look up roles
-function lookUpRole(){  
+function searchRole(){  
   
     connection.query("SELECT * FROM role", function (err, data) {
         if (err) throw err;
@@ -143,7 +143,7 @@ function lookUpRole(){
     }
 
 //look up employees
-function lookUpEmployee(){  
+function searchEmployees(){  
     connection.query("SELECT * FROM employee", function (err, data) {
         if (err) throw err;
         for (i = 0; i < data.length; i++) {
