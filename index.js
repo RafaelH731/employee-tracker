@@ -1,6 +1,7 @@
 //dependecies
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+const { start } = require("repl");
 
 //creates connection
 var connection = mysql.createConnection({
@@ -77,11 +78,36 @@ var connection = mysql.createConnection({
 
   //view all departments function
   function viewAllDepartments() {
+      
     connection.query("SELECT * FROM department", function(err, result, fields) {
+        if (err) throw err;
+        console.table(result);
+        // prompt for next selection
+        startApp();
+      }
+    ); 
+};
+
+function viewAllRoles() {
+    connection.query(
+    "SELECT role.id, role.title, role.salary, role.department_id, department.id, department.name FROM role LEFT JOIN department on role.department_id = department.id",
+    function(err, result, fields) {
+       if (err) throw err;
+       console.table(result);
+       // prompt for next selection
+       startApp();
+     }
+    ); 
+};
+
+function viewAllEmployees() {
+    connection.query(
+      "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, role.salary, role.id, department.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", 
+      function(err, result, fields) {
         if (err) throw err;
         console.table(result);
         // re-prompt the user for another selection
         startApp();
       }
-    ); 
-};
+    );
+  };
