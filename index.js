@@ -2,8 +2,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var consoleTable = require("console.table");
-//dont know where this keeps coming from
-const { start } = require("repl");
+
 
 //creates connection
 var connection = mysql.createConnection({
@@ -15,7 +14,7 @@ var connection = mysql.createConnection({
     user: "root",
     // password
     password: "Stronglion9*",
-    database: "employee_tracker"
+    database: "employees"
   });
 
   //connect or show error
