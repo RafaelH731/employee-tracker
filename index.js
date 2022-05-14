@@ -92,8 +92,7 @@ var connection = mysql.createConnection({
 
 //view all roles function
 function viewAllRoles() {
-    connection.query(
-    "SELECT role.id, role.title, role.salary, role.department_id, department.id, department.name FROM role LEFT JOIN department on role.department_id = department.id",
+    connection.query("SELECT role.id, role.title, role.salary, role.department_id, department.id, department.name FROM role LEFT JOIN department on role.department_id = department.id",
     function(err, result, fields) {
        if (err) throw err;
        console.table(result);
@@ -105,8 +104,7 @@ function viewAllRoles() {
 
 //view all employees function
 function viewAllEmployees() {
-    connection.query(
-      "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, role.salary, role.id, department.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", 
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, role.salary, role.id, department.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", 
       function(err, result, fields) {
         if (err) throw err;
         console.table(result);
@@ -166,11 +164,9 @@ function addDepartment() {
       message: "Enter the department you would like to add:"
     }
     ]).then(function(answer) {
-      var query = 
-      `INSERT INTO department (name)
+      var query = `INSERT INTO department (name)
        VALUES ('${answer.dept}')`;
       connection.query(query, function(err, res) {
-        console.log(`-------new department added: ${answer.dept}-------`)
       });
       startApp();
     });
@@ -193,7 +189,7 @@ function addRole() {
         name: "dept",
         type: "list",
         message: "In what department would you like to add this role?",
-        choices: deptChoices
+        choices: departmentChoices
     },
     
     {
@@ -209,7 +205,6 @@ function addRole() {
       `INSERT INTO role (title, salary, department_id)
        VALUES ('${answer.role}','${answer.salary}','${getDepartmentId[0]}')`;
       connection.query(query, function(err, res) {
-        console.log(`<br>-----new role ${answer.role} added!------`)
       });
       startApp();
     });
@@ -244,18 +239,17 @@ function addEmployee() {
         name: "reportingTo",
         type: "list",
         message: "Who is the employee's manager?",
-        choices: empChoices
+        choices: employeeChoices
       }
     
      ]).then(function(answer) {
       var getRoleId =answer.role.split("-")
       var reportingId=answer.reportingTo.split("-")
-      var query = 
-      `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+      var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
        VALUES ('${answer.firstname}','${answer.lastname}','${getRoleId[0]}','${reportingId[0]}')`;
       connection.query(query, function(err, res) {
-        console.log(`new employee ${answer.firstname} ${answer.lastname} added!`)
       });
       startApp();
     });
   };
+//updates a role
