@@ -90,6 +90,7 @@ var connection = mysql.createConnection({
     ); 
 };
 
+//view all roles function
 function viewAllRoles() {
     connection.query(
     "SELECT role.id, role.title, role.salary, role.department_id, department.id, department.name FROM role LEFT JOIN department on role.department_id = department.id",
@@ -102,15 +103,51 @@ function viewAllRoles() {
     ); 
 };
 
+//view all employees function
 function viewAllEmployees() {
     connection.query(
       "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, role.salary, role.id, department.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", 
       function(err, result, fields) {
         if (err) throw err;
         console.table(result);
-        // re-prompt the user for another selection
+         // prompt for next selection
         startApp();
       }
     );
   };
 
+  //empty arrays yo push data into
+  var departmentChoices = [];
+  var roleChoices = [];
+  var employeeChoices = [];
+
+  //function to look up departments
+  function lookUpDepartments(){
+    connection.query("SELECT * FROM department", function (err, data) {
+      if (err) throw err;
+      for (i = 0; i < data.length; i++) {
+          departmentChoices.push(data[i].id + "-" + data[i].name)
+      }
+    })
+    }
+
+//function to look up roles
+function lookUpRole(){  
+  
+    connection.query("SELECT * FROM role", function (err, data) {
+        if (err) throw err;
+        for (i = 0; i < data.length; i++) {
+            roleChoices.push(data[i].id + "-" + data[i].title)
+        }
+     })
+    }
+
+//look up employees
+function lookUpEmployee(){  
+    connection.query("SELECT * FROM employee", function (err, data) {
+        if (err) throw err;
+        for (i = 0; i < data.length; i++) {
+            employeeChoices.push(data[i].id + "-" + data[i].first_name+" "+ data[i].last_name)
+        }
+    }) 
+   }
