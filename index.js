@@ -251,4 +251,66 @@ function addEmployee() {
       startApp();
     });
   };
-//updates a role
+//updates employeerole
+function updateEmployeeRole() {
+    connection.query('SELECT * FROM employee', function (err, result) {
+      if (err) throw (err);
+      inquirer
+      //pompt to choose which employee to change
+        .prompt([
+          {
+            name: "employeeName",
+            type: "list",
+            message: "Which employee's role is changing?",
+            choices: function () {
+              var updatedArray = [];
+              result.forEach(result => {
+                updatedArray.push(
+                  result.last_name
+                );
+              })
+              return updatedArray;
+            }
+          }
+        ])
+     //prompt to enter new role
+        .then(function (response) {
+          const name = response.employeeName;
+          connection.query("SELECT * FROM role", function (err, res) {
+            inquirer
+              .prompt([
+                {
+                  name: "role",
+                  type: "list",
+                  message: "What is their new role?",
+                  choices: function () {
+                    var newRoleArray = [];
+                    res.forEach(res => {
+                      newRoleArray.push(
+                        res.title)
+                    })
+                    return newRoleArray;
+                  }
+                }
+                
+              ]).then(function (roleResponse) {
+                const role = roleResponse.role;
+                connection.query('SELECT * FROM role WHERE title = ?', [role], function (err, res) {
+                  if (err) throw (err);
+                  let roleId = res[0].id;
+     
+                  let query = "UPDATE employee SET role_id = ? WHERE last_name =  ?";
+                  let values = [parseInt(roleId), name]
+          
+                  connection.query(query, values,
+                    function (err, res, fields) {
+                      console.log(`You have updated ${name}'s role to ${role}.`)
+                    })
+
+                  viewAll();
+                })
+              })
+          })
+        })
+    })
+    };
