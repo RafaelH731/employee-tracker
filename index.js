@@ -45,7 +45,7 @@ var connection = mysql.createConnection({
     .then(function(answer) {
         console.log(answer);
       
-      if (answer.selection === "View All Departments") {
+      if (answer.selection === "View all Departments") {
         viewAllDepartments();
       }
       else if(answer.selection === "View all Roles") {
@@ -80,9 +80,9 @@ var connection = mysql.createConnection({
   //view all departments function
   function viewAllDepartments() {
       
-    connection.query("SELECT * FROM department", function(err, result, fields) {
+    connection.query("SELECT * FROM department", function(err, results, fields) {
         if (err) throw err;
-        console.table(result);
+        console.table(results);
         // prompt for next selection
         startApp();
       }
@@ -106,7 +106,7 @@ function viewAllEmployees() {
     connection.query("SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, role.salary, role.id, department.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", 
       function(err, result, fields) {
         if (err) throw err;
-        console.table(result);
+        console.table('this is the result',result);
          // prompt for next selection
         startApp();
       }

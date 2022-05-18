@@ -34,6 +34,6 @@
 
 
   ## Screenshots
-  - ![Insert description here](Insert link to picture)
+  - ![TerminalScreenshot](assets/employee-tracker-screenshot.png)
   - ![Insert description here](Insert link to picture)
 
