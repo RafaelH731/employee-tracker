@@ -307,7 +307,7 @@ function updateEmployeeRole() {
                       console.log(`You have updated ${name}'s role to ${role}.`)
                     })
 
-                  viewAll();
+                  viewAllEmployees();
                 })
               })
           })

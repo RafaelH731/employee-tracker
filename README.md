@@ -27,13 +27,14 @@
   To help employers track and edit employees. The application will give the employer a better tracking system that will be user friendly and easy to navigate.
   ## Tests
   None 
+  MySQL Workbench was used to troubleshoot certain parts of the code during the building process 
   ## Questions
   - GitHub Repo: https://github.com/RafaelH731/employee-tracker
   - Email: rafaelherrera731@gmail.com
-  - Video: Youtube link will go here
+  - Video: https://youtu.be/9FRXTUSXvLg
 
 
   ## Screenshots
   - ![TerminalScreenshot](assets/employee-tracker-screenshot.png)
-  - ![Insert description here](Insert link to picture)
+  - ![VideoScreenshot](assets/employee-tracker-screenshot-video.png)
 
